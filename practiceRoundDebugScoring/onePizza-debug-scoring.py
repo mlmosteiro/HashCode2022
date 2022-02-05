@@ -9,43 +9,33 @@ def calculateFavoriteIngredients(likedIngredients, dislikedIngredients):
     return selectedIngredients
 
 
-def pizzaHasAtLeastOneLikedIngredient(likedIngredientInPizza):
-    return len(likedIngredientInPizza) > 0
+def pizzaHasLikedIngredients(ingredientsInPizza, likedIngredients):
+    result = all(ingredients in ingredientsInPizza for ingredients in likedIngredients)
+    # print ("pizzaHasLikedIngredients: " + result.__str__())
+    return result
 
 
-def pizzaHasEnoughLikedIngredients(likedIngredientInPizza, generalLikedIngredients):
-    return len(generalLikedIngredients) - 1 <= len(likedIngredientInPizza) <= len(generalLikedIngredients) + 1
+def pizzaHasAnyDislikedIngredients(ingredientsInPizza, dislikedIngredients):
+    result = len(list(set(dislikedIngredients).intersection(ingredientsInPizza))) == 0
+    # print("pizzaHasAnyDislikedIngredients: " + result.__str__())
+    return result
 
 
-def pizzaHasAcceptableDislikedIngredients(dislikedIngredientsInPizza, generalDislikedIngredientsInPizza):
-    return len(generalDislikedIngredientsInPizza) - 1 <= len(dislikedIngredientsInPizza) <= len(generalDislikedIngredientsInPizza) + 1
-
-
-def clientLikesPizza(selectedIngredients, likedIngredients, dislikedIngredients):
-    likedIngredientsInPizza = list(set(likedIngredients).intersection(selectedIngredients))
-    dislikedIngredientsInPizza = list(set(dislikedIngredients).intersection(selectedIngredients))
-
+def clientLikesPizza(ingredientsInPizza, likedIngredients, dislikedIngredients):
     # print("==========================")
-    # print("selectedIngredients")
-    # print(selectedIngredients)
+    # print("ingredientsInPizza")
+    # print(ingredientsInPizza)
     # print("likedIngredients")
     # print(likedIngredients)
     # print("dislikedIngredients")
     # print(dislikedIngredients)
-    # print("likedIngredientInPizza")
-    # print(likedIngredientsInPizza)
-    # print("dislikedIngredientsInPizza")
-    # print(dislikedIngredientsInPizza)
 
-    return pizzaHasAtLeastOneLikedIngredient(likedIngredientsInPizza) \
-        and pizzaHasEnoughLikedIngredients(likedIngredientsInPizza, likedIngredients)\
-        and pizzaHasAcceptableDislikedIngredients(dislikedIngredientsInPizza, dislikedIngredients)
-
+    return pizzaHasLikedIngredients(ingredientsInPizza, likedIngredients) and pizzaHasAnyDislikedIngredients(ingredientsInPizza, dislikedIngredients)
 
 
 def main():
     files = fileReader.loadInputFiles()
-    
+
     for file in files:
         totalClients, likedIngredients, dislikedIngredients, clientsLikedIngredients, clientsDislikedIngredients = fileReader.parseInput(file)
 
@@ -56,7 +46,7 @@ def main():
             if clientLikesPizza(favoriteIngredients, clientsLikedIngredients[i], clientsDislikedIngredients[i]):
                 points += 1
 
-        print(file + ": " + points.__str__()) 
+        print(file + ": " + points.__str__())
         resultTxt = len(favoriteIngredients).__str__() + " " + " ".join(favoriteIngredients)
         fileWriter.writeResultFile(file, resultTxt)
 
