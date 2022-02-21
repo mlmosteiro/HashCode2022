@@ -5,14 +5,10 @@ from outputDomain.TrafficLightSchedule import TrafficLightSchedule
 
 # problem in :
 # https://storage.googleapis.com/coding-competitions.appspot.com/HC/2021/hashcode_2021_online_qualification_round.pdf
-
-
-def calculateFavoriteIngredients(likedIngredients, dislikedIngredients):
-    selectedIngredients = [
-        ingredient for ingredient in likedIngredients if ingredient not in dislikedIngredients]
-
-    return selectedIngredients
-
+# 1. Read inputData
+# 2. Write solution files
+# 3. Build simple solution
+# 4. Optimize solution
 
 def getStraightSolution(carPaths, streets):
     trafficLightsAtTheEndOf = {}
