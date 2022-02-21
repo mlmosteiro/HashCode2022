@@ -5,6 +5,9 @@ from outputDomain.TrafficLightSchedule import TrafficLightSchedule
 
 # problem in :
 # https://storage.googleapis.com/coding-competitions.appspot.com/HC/2021/hashcode_2021_online_qualification_round.pdf
+# 1. Read inputData
+# 2. Write solution files
+# 3. Build simple solution
 
 
 def getStraightSolution(streets):
